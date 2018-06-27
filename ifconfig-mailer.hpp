@@ -49,6 +49,7 @@
 #include <ch-cpp-utils/http-request.hpp>
 #include <ch-cpp-utils/timer.hpp>
 #include <ch-cpp-utils/utils.hpp>
+#include <ch-cpp-utils/proc-stat.hpp>
 
 #include "config.hpp"
 #include "mail-client.hpp"
@@ -61,6 +62,7 @@ using ChCppUtils::TimerEvent;
 using ChCppUtils::Http::Client::HttpRequest;
 using ChCppUtils::Http::Client::HttpResponse;
 using ChCppUtils::Http::Client::HttpRequestLoadEvent;
+using ChCppUtils::ProcStat;
 
 namespace IfconfigMailer {
 
@@ -73,6 +75,7 @@ class IfconfigMail {
       HttpRequest *request;
       string ip;
       string changedIp;
+      ProcStat *procStat;
 
       static void _onLoad(HttpRequestLoadEvent *event, void *this_);
       void onLoad(HttpRequestLoadEvent *event);

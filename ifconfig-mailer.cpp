@@ -58,6 +58,7 @@ IfconfigMail::IfconfigMail(Config *config) {
    ip = "0.0.0.0";
    changedIp = "0.0.0.0";
    request = nullptr;
+   procStat = new ProcStat();
 }
 
 
@@ -67,6 +68,7 @@ IfconfigMail::~IfconfigMail() {
    }
    delete mTimer;
    delete mMailClient;
+   delete procStat;
 }
 
 void IfconfigMail::_onLoad(HttpRequestLoadEvent *event, void *this_) {
@@ -111,7 +113,18 @@ void IfconfigMail::_onTimerEvent(TimerEvent *event, void *this_) {
 }
 
 void IfconfigMail::onTimerEvent(TimerEvent *event) {
-	LOG(INFO) << "Timer fired!";
+      LOG(INFO) << "Timer fired!";
+
+      uint32_t rss = procStat->getRSS();
+	LOG(INFO) << "RSS: " << rss / 1024 << " KB, Max RSS Configured: " << 
+		(mConfig->getMaxRss() / 1024) << " KB";
+
+	if(rss > mConfig->getMaxRss()) {
+		LOG(ERROR) << "*********FATAL**********";
+		LOG(ERROR) << "Too much memory in use. Exiting process.";
+		LOG(FATAL) << "*********FATAL**********";
+		exit(1);
+	}
 
    if(request) {
       LOG(INFO) << "Deleting previous request context.";

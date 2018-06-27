@@ -93,10 +93,12 @@ bool Config::populateConfigValues() {
 	LOG(INFO) << "notifications.email.from: " << mNotEmailFrom;
 
 	for(auto to : mJson["notifications"]["email"]["to"]) {
+		LOG(INFO) << "notifications.email.to: " << to;
 		mNotEmailTo.push_back(to);
 	}
 
 	for(auto cc : mJson["notifications"]["email"]["cc"]) {
+		LOG(INFO) << "notifications.email.cc: " << cc;
 		mNotEmailCc.push_back(cc);
 	}
 
