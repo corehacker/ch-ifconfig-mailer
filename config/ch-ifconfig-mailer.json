@@ -1,0 +1,24 @@
+{
+    "console": true,
+    "daemon": false,
+    "run-for": 31536000000,
+    "run-forever": true,
+    "max-rss": 209715200,
+    "interval": 300,
+    "ifconfig-url": "http://ifconfig.co:80/json",
+    "notifications": {
+        "enable": true,
+        "email": {
+            "enable":true,
+            "thread-count": 2,
+            "from": "",
+            "to": ["ABC <abc@xyz.com>"],
+            "cc": ["XYZ <xyz@abc.com>"],
+            "subject": "Notification | IP Address Change",
+            "smtp": {
+                "url": "smtp://127.0.0.1"
+            },
+            "aggregate": 3000
+        }
+    }
+}
