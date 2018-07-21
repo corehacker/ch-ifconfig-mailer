@@ -83,8 +83,8 @@ static void deinitEnv() {
 int main() {
 	initEnv();
 
-	THREAD_SLEEP(config->getRunFor());
-
+	THREAD_SLEEP(config->shouldRunForever() ? INT64_MAX : config->getRunFor());
+	
 	deinitEnv();
    return 0;
 }
