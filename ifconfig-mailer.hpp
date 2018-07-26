@@ -77,6 +77,12 @@ class IfconfigMail {
       string changedIp;
       ProcStat *procStat;
 
+      bool getJson(string &str, json &mJson);
+      bool getIPAddress(json &mJson, string &ipAddress);
+      bool validateIpAddress(string &ipAddress);
+      bool isValidIPAddress(string &ipAddress);
+      void handleResponse(string &str);
+
       static void _onLoad(HttpRequestLoadEvent *event, void *this_);
       void onLoad(HttpRequestLoadEvent *event);
 
