@@ -170,9 +170,9 @@ void IfconfigMail::handleResponse(string &str) {
   LOG(INFO) << "Current IP Address: " << ip << " Changed IP Address: " << changedIp;
   if(ip != changedIp) {
     LOG(INFO) << "IP Address change. Setting IP to : " << changedIp;
+    string eventString = ip + " --> " + changedIp;
     ip = changedIp;
     if(mConfig->getNotEnable() && mConfig->getNotEmailEnable()) {
-      string eventString = ip + " --> " + changedIp;
       mMailClient->notifyIpAddressChange(eventString);
     } else {
       LOG(WARNING) << "Email notification disabled.";
@@ -198,22 +198,6 @@ void IfconfigMail::onLoad(HttpRequestLoadEvent *event) {
 
   handleResponse(jsonBody);
 
-  //  json mJson = json::parse(jsonBody);
-  //  changedIp = mJson["ip"];
-  //  LOG(INFO) << "Current IP Address: " << ip << " Changed IP Address: " << changedIp;
-  //  if(ip != changedIp) {
-  //     LOG(INFO) << "IP Address change. Setting IP to : " << changedIp;
-  //     string eventString = ip + " --> " + changedIp;
-  //     ip = changedIp;
-  //     if(mConfig->getNotEnable() && mConfig->getNotEmailEnable()) {
-  //       mMailClient->notifyIpAddressChange(eventString);
-  //     } else {
-  //       LOG(WARNING) << "Email notification disabled.";
-  //     }
-      
-  //  } else {
-  //     LOG(INFO) << "No IP Address change: " << ip;
-  //  }
   LOG(INFO) << "Request Complete: " << response->getResponseCode();
   LOG(INFO) << "Waiting for " << mConfig->getInterval() << " seconds until next check.";
   mTimer->restart(mTimerEvent);
