@@ -44,9 +44,7 @@
 #include <event2/http.h>
 #include <event2/http_struct.h>
 #include <event2/buffer.h>
-#include <ch-cpp-utils/http-connection.hpp>
-#include <ch-cpp-utils/http-client.hpp>
-#include <ch-cpp-utils/http-request.hpp>
+#include <ch-cpp-utils/http/client/http.hpp>
 #include <ch-cpp-utils/timer.hpp>
 #include <ch-cpp-utils/utils.hpp>
 #include <ch-cpp-utils/proc-stat.hpp>
