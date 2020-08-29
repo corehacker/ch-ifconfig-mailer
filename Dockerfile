@@ -1,7 +1,8 @@
 FROM ubuntu:focal
 
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends build-essential \
-    cmake supervisor autoconf automake libtool git wget ca-certificates curl libcurl4-openssl-dev && mkdir -p /deps && cd /deps
+    cmake supervisor autoconf automake libtool git wget ca-certificates curl libcurl4-openssl-dev pkg-config && \
+    mkdir -p /deps && cd /deps
 
 RUN cd /deps && \
     curl -L https://github.com/libevent/libevent/releases/download/release-2.1.8-stable/libevent-2.1.8-stable.tar.gz -o libevent-2.1.8-stable.tar.gz && \
@@ -45,3 +46,10 @@ RUN cd /deps && \
     make -j8 && \
     make -j8 install
 
+ENV LD_LIBRARY_PATH=/usr/local/lib
+
+RUN mkdir -p /etc/ch-ifconfig-mailer
+
+COPY ./ch-configs/ch-ifconfig-mailer /etc/ch-ifconfig-mailer
+
+CMD [ "ch-ifconfig-mailer" ]

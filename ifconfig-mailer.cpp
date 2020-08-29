@@ -246,6 +246,7 @@ void IfconfigMail::start() {
   struct timeval tv = {0};
   tv.tv_sec = mConfig->getInterval();
   mTimerEvent = mTimer->create(&tv, IfconfigMail::_onTimerEvent, this);
+  LOG(INFO) << "Timer created.";
 }
 
 void IfconfigMail::stop() {
